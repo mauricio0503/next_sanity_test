@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# [Crypto Casino] - Testing Task Submission
 
-## Getting Started
+---
 
-First, run the development server:
+## 🚀 Live Demo
 
-```bash
+A live version of the project is deployed on Vercel.
+
+**Link:** **[https://next-sanity-test-rho.vercel.app/us/crypto]**
+**Sanity Link:** **[https://crypto-casinos.sanity.studio]**
+
+---
+
+## 🛠️ Tech Stack
+
+The project is built with the following technologies:
+
+- **Framework:** Next.js 14
+- **CMS:** Sanity.io
+- **Styling:** Tailwind CSS
+- **UI Components:** Shadcn/ui
+- **Deployment:** Vercel
+
+---
+
+## ⚙️ Getting Started: How to Run the Project
+
+Follow these steps to get a local copy up and running for testing.
+
+### Installation & Setup
+
+1.  **Clone the repository**
+    ```sh
+    git clone https://github.com/mauricio0503/next_sanity_test.git
+    ```
+2.  **Navigate to the project directory**
+    ```sh
+    cd next_sanity_test [your-project-folder]
+    ```
+3.  **Install dependencies**
+    ```sh
+    npm install
+    ```
+4.  **Set up Environment Variables**
+    Create a `.env.local` file in the root of the project by duplicating the `.env.example` file. Then, fill in the required Sanity credentials.
+
+    ```sh
+    # .env.local
+    NEXT_PUBLIC_SANITY_PROJECT_ID="sanity_project_id"
+    NEXT_PUBLIC_SANITY_DATASET="sanity_dataset_id"
+    ```
+
+### Running the Application
+
+Once the setup is complete, you can run the development server:
+
+```sh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
