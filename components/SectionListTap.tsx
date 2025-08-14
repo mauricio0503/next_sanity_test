@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { BookText, ChevronDown, ChevronUp, MapPin } from "lucide-react";
 
 import { SectionLink } from "@/types/sanity-types";
@@ -18,19 +18,32 @@ export const DesktopSectionListTap = ({
 
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <aside className="hidden xl:block w-full md:w-96 flex-shrink-0 scroll">
       <div className="sticky top-24">
         {/* States Dropdown */}
-        <div className="bg-white text-secondary rounded-xl mb-4 relative">
+        {/* 4. Attach the ref to the dropdown's container */}
+        <div ref={dropdownRef} className="bg-white text-secondary rounded-xl mb-4 relative">
           <button
             className="w-full flex items-center justify-between text-left font-normal py-4 px-4 h-auto border rounded-xl"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             <div className="flex items-center gap-2">
               <MapPin />
-              {/* 2. Display placeholder text if no state is selected */}
               <span>{selectedState || "Choose State"}</span>
             </div>
             {dropdownOpen ? (
@@ -85,12 +98,25 @@ export const MobileSectionListTap = ({ sectionList }: { sectionList: SectionLink
   const [open, setOpen] = useState(false);
   const sectionIds = sectionList.map((s) => s.bookmark);
   const { activeId, scrollToSection } = useActiveSection(sectionIds);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className="block sm:hidden sticky top-20 z-20 bg-white border-y">
+    <div ref={mobileMenuRef} className="block sm:hidden sticky top-20 z-20 bg-white border-y">
       <div className="w-full py-3 relative z-30">
         <div
-          className="w-full flex items-center justify-between text-left font-semibold text-sm h-auto px-4"
+          className="w-full flex items-center justify-between text-left font-semibold text-sm h-auto px-4 cursor-pointer"
           onClick={() => setOpen(!open)}
         >
           <div className="flex items-center gap-2">
@@ -101,7 +127,7 @@ export const MobileSectionListTap = ({ sectionList }: { sectionList: SectionLink
         </div>
 
         {open && (
-          <div className="absolute left-0 right-0 mt-2 bg-white text-secondary border-b px-12 py-2">
+          <div className="absolute left-0 right-0 mt-2 bg-white text-secondary border-b px-12 py-2 pb-6">
             <ul className="space-y-3">
               {sectionList.map((item) => (
                 <li

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { GiftIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -74,23 +75,21 @@ export const BrandSection = ({ data }: { data: BrandSectionType }) => {
           </div>
           {/* Actions */}
           <div className="flex flex-col w-full md:w-auto gap-2 items-end min-w-[160px]">
-            <a
+            <Link
               href={brand.bonusUrl}
               className="flex justify-center items-center w-full gap-3 bg-primary hover:bg-red-600 text-white font-bold px-6 py-3 text-base text-center rounded-lg cursor-pointer"
               target="_blank"
-              rel="noopener noreferrer"
             >
               <GiftIcon />
               Claim Bonus
-            </a>
-            <a
+            </Link>
+            <Link
               href={brand.reviewUrl}
               className="text-primary hover:underline hover:font-bold text-sm font-semibold text-center cursor-pointer place-self-center py-2 w-full"
               target="_blank"
-              rel="noopener noreferrer"
             >
               Read Review
-            </a>
+            </Link>
           </div>
         </div>
       </div>

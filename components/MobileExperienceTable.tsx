@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { Check, ChevronDown, CircleX } from "lucide-react";
 
@@ -41,14 +42,13 @@ export const MobileExperienceTable = ({ data }: { data: MobileExperienceTableSec
           <div className="font-semibold text-sm mt-2">{brand.name}</div>
           {/* Mobile Button */}
           <div className="flex md:hidden items-center gap-2 mt-2">
-            <a
-              href={brand.playUrl}
+            <Link
+              href={brand.playUrl ?? "/us/crypto"}
               target="_blank"
-              rel="noopener noreferrer"
               className="bg-primary hover:bg-red-600 text-white font-bold px-5 py-2 rounded-lg flex items-center gap-2"
             >
               Play <ChevronDown className="w-4 h-4" />
-            </a>
+            </Link>
             <RegalIcon className="text-secondary hover:text-primary transition-colors cursor-pointer" />
           </div>
         </td>
@@ -127,14 +127,12 @@ export const MobileExperienceTable = ({ data }: { data: MobileExperienceTableSec
 
         {/* Play button */}
         <td className="hidden md:table-cell py-4 px-4 align-top border border-gray-200">
-          <a
-            href={brand.playUrl}
-            target="_blank"
+          <button
             rel="noopener noreferrer"
             className="bg-red-500 hover:bg-red-600 text-white font-bold px-5 py-2 rounded-lg flex justify-between items-center gap-2"
           >
             Play <ChevronDown className="w-4 h-4" />
-          </a>
+          </button>
           <RegalIcon className="mt-2.5 place-self-center text-secondary hover:text-primary transition-colors cursor-pointer" />
         </td>
       </tr>

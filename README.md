@@ -56,3 +56,4 @@ Once the setup is complete, you can run the development server:
 
 ```sh
 npm run dev
+```

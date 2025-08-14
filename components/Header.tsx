@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Lexend } from "next/font/google";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDown, Search, Menu, X } from "lucide-react";
 
 import { cn, urlFor } from "@/lib/utils";
@@ -16,12 +16,29 @@ export const Header = ({ data }: { data: HeaderType }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageType | null>(null);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
+  const languageDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (data.languages && data.languages.length > 0) {
       setSelectedLanguage(data.languages[0]);
     }
   }, [data.languages]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        languageDropdownRef.current &&
+        !languageDropdownRef.current.contains(event.target as Node)
+      ) {
+        setLanguageDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const renderMenuItems = (inMobileMenu = false) => {
     const handleMobileDropdownToggle = (key: string) => {
@@ -89,7 +106,7 @@ export const Header = ({ data }: { data: HeaderType }) => {
       return (
         <Link
           key={item._key}
-          href={item.link || "#"}
+          href={item.link ?? "/us/crypto"}
           className={cn("hover:text-primary transition", inMobileMenu && "py-2 px-1 block")}
           onClick={() => inMobileMenu && setMenuOpen(false)}
         >
@@ -128,7 +145,7 @@ export const Header = ({ data }: { data: HeaderType }) => {
           </button>
 
           {data.languages && selectedLanguage && (
-            <div className="relative hidden xs:flex">
+            <div ref={languageDropdownRef} className="relative hidden xs:flex">
               <button
                 onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
                 className="flex items-center gap-2 border rounded-md px-3 py-2 bg-background cursor-pointer min-w-[160px]"
@@ -141,7 +158,12 @@ export const Header = ({ data }: { data: HeaderType }) => {
                   className="rounded-full object-cover"
                 />
                 <span className="text-sm font-medium">{selectedLanguage.country}</span>
-                <ChevronDown className="w-4 h-4 ml-auto transition-transform" />
+                <ChevronDown
+                  className={cn(
+                    "w-4 h-4 ml-auto transition-transform",
+                    languageDropdownOpen && "rotate-180",
+                  )}
+                />
               </button>
 
               {languageDropdownOpen && (
@@ -173,10 +195,10 @@ export const Header = ({ data }: { data: HeaderType }) => {
             </div>
           )}
 
-          <Link href={data.ctaButton.link} legacyBehavior>
-            <a className="border-primary text-primary hover:bg-red-50 hover:text-red-600 border-2 font-bold h-12 px-6 text-base hidden lg:flex items-center justify-center rounded-md">
+          <Link href={data.ctaButton.link ?? "/us/crypto"} legacyBehavior>
+            <div className="cursor-pointer border-primary text-primary hover:bg-red-50 hover:text-red-600 border-2 font-bold h-12 px-6 text-base hidden lg:flex items-center justify-center rounded-md">
               {data.ctaButton.text}
-            </a>
+            </div>
           </Link>
           <button
             className="p-2 rounded hover:bg-muted block xl:hidden"
@@ -205,7 +227,7 @@ export const Header = ({ data }: { data: HeaderType }) => {
               <X className="w-6 h-6" />
             </button>
             {renderMenuItems(true)}
-            <Link href={data.ctaButton.link} legacyBehavior>
+            <Link href={data.ctaButton.link ?? "/us/crypto"} legacyBehavior>
               <a className="border-primary text-primary text-center hover:bg-red-50 hover:text-red-600 border-2 font-bold h-12 px-6 text-base mt-6 flex items-center justify-center rounded-md">
                 {data.ctaButton.text}
               </a>
