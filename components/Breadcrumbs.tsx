@@ -18,9 +18,9 @@ export const Breadcrumbs = ({
       {items.map((item, idx) => (
         <span key={item.label} className="flex items-center gap-2">
           {item.href && idx !== items.length - 1 ? (
-            <Link href={item.href} className="text-secondary hover:text-primary hover:underline">
+            <div className="text-secondary hover:text-primary hover:underline cursor-pointer">
               {item.label}
-            </Link>
+            </div>
           ) : (
             <span>{item.label}</span>
           )}
